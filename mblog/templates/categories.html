@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+    .categories-container{
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr;
+    }
+</style>
+
+<div class="categories-container">
+
+    <div>
+
+    </div>
+
+    <div>
+
+        {% if category_posts %}
+
+        <h1> {{cats}}</h1>
+       
+           <ul>
+               {% for post in category_posts %}
+               
+                   </br><br/>
+                   <li> 
+                       <a href="{% url 'article-detail' post.pk%}">{{post.title}}</a> -- {{post.author}} -- {{post.category}}--{{post.post_date}} 
+                       
+                       {% if user.is_authenticated %}
+                       <a href="{% url 'update-post' post.pk%}"> Edit</a> | 
+                       <a href="{% url 'delete-post' post.pk %}"> Delete </a>
+                       {% endif %}
+                   </li>
+                       
+                   </br>
+                   <small>{{post.body|slice:255|safe}} </small> 
+       
+               
+       
+               {% endfor %}
+       
+           </ul>    
+       
+       {% else %}
+       This page doesn't exist.
+       {% endif %}
+
+    </div>
+
+</div>
+
+
+
+{% endblock %}

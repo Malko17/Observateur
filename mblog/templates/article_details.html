@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title%} {{post.title_tag }}{% endblock %}
+
+{% block content %}
+
+<style>
+    .article_details-container{
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr;
+    }
+</style>
+
+
+
+<div class="article_details-container">
+    <div>
+
+    </div>
+    
+    <div>
+        <h1>
+            <small><small>{{ post.title }}</small></small>
+        </h1>
+        
+        <small>
+            <strong> {{ post.author.first_name }}  {{ post.author.last_name}} </strong> <br>{{post.post_date}} 
+            </br>
+            {% if user.is_authenticated %}
+                {% if user.id == post.author.id%}
+                <small>
+                    <a href="{% url 'update-post' post.pk%}"> Edit</a>
+                    <a href="{% url 'delete-post' post.pk %}"> Delete </a>
+                </small>
+                {% endif %}
+            {% endif %}
+        </small>
+        
+        </br>
+        <hr>
+        </br><br/>
+
+        {% if post.header_image %}
+            <img src="{{ post.header_image.url }}">
+        
+        {% endif %}
+
+        <small>
+            <small> {{ post.body|safe }} </small>
+        </small>
+        
+        
+        </br> <br/>
+        
+        <a href="{% url 'home' %}" class="btn btn-info">Back</a>
+
+        </br> <br/>
+        <hr>
+        <br/>
+        <form action="{% url 'like-post' post.pk %}" method="POST">
+            {% csrf_token %}
+        {% if user.is_authenticated %}
+            {% if liked %}
+                <button type="submit", name="post_id", value = "{{ post.id }}", 
+                class="btn btn-danger btn-sm">Unlike</button> 
+                {% else %}
+
+                <button type="submit", name="post_id", value = "{{ post.id }}", 
+                class="btn btn-primary btn-sm">Like</button> 
+                {% endif %}
+        {% else %}
+        <small> <a href="{% url 'login' %}"> login to like</a>
+            
+        </small>
+        {% endif %}
+    
+            
+            - {{ total_likes }} Likes
+        </form>
+
+        </br><br/>
+
+        <div class="card mb-4">
+            <div class="row g-0">
+            <div class="col-md-2">
+
+                {% if post.author.profile.profile_picture %}
+                <img src="{{ post.author.profile.profile_picture.url}}"  class="rounded-circle" width="100" height="100">
+
+                {% else %}
+                <img src="{% static 'mblog/images/efault_profile.jpg'%}"  class="rounded-circle" width="100" height="100">
+                {% endif %}
+
+            </div>
+            <div class="col-md-10">
+                <div class="card-body">
+                <h5 class="card-title">
+                    {{ post.author.first_name }}  
+                    {{ post.author.last_name}}
+                </h5>
+
+                <p class="small text-muted">
+                    {% if post.author.profile.website_url %}
+                    <a href="{{ post.author.profile.website_url}}">Website</a>|
+                    {% endif %}
+                    {% if post.author.profile.facebook_url %}
+                    <a href="{{ post.author.profile.facebook_url}}"> Facebook </a>| 
+                    {% endif %}
+                    {% if post.author.profile.twitter_url%}
+                    <a href="{{ post.author.profile.twitter_url}}"> Twitter </a>| 
+                    {% endif%}
+                    {% if post.author.profile.linkedin_url%}
+                    <a href="{{ post.author.profile.linkedin_url}}"> LinkedIn </a>|
+                    {% endif %} 
+                    {% if post.author.profile.discord_url%}
+                    <a href="{{ post.author.profile.discord_url}}"> Discord </a>
+                    {% endif %}
+                </p>
+                <p class="card-text"> {{ post.author.profile.bio}} </p>
+                </div>
+            </div>
+            </div>
+        </div>
+    
+   
+
+    </div>
+
+
+
+
+    
+</div>
+</br><br/></br><br/></br><br/></br><br/>
+
+{% endblock %}

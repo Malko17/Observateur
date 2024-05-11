@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+    .home-container{
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr;
+    }
+</style>
+
+<div class="home-container">
+    <div>
+
+    </div>
+
+    <div>
+        <h1> Posts</h1>
+        <hr>
+
+        <ul>
+        {% for post in object_list%}
+        </br>
+        <li> 
+            <a href="{% url 'article-detail' post.pk%}">{{post.title}}</a> -- {{post.author}} -- <a href="{% url 'category' post.category%}"> {{post.category}} </a>--{{post.post_date}} 
+            {% if user.is_authenticated %}
+                {% if user.id == post.author.id %}
+                
+                <a href="{% url 'update-post' post.pk%}"> Edit</a> 
+                | 
+                <a href="{% url 'delete-post' post.pk %}"> Delete </a>
+                {% endif %}
+        </li>
+            {% endif %}
+        </br>
+        <small>{{post.snippets}} </small>
+        
+    
+        </br><br/> </br>
+        <form action="{% url 'like-post' post.pk%}" method="POST">
+            {% csrf_token %}
+        {% if user.is_authenticated %}
+            {% if liked %}
+                <button type="submit", name="post_id", value = "{{ post.id }}", 
+                class="btn btn-danger btn-sm">Unlike</button> 
+                {% else %}
+    
+                <button type="submit", name="post_id", value = "{{ post.id }}", 
+                class="btn btn-primary btn-sm">Like</button> 
+                {% endif %}
+        {% else %}
+        <small> <a href="{% url 'login' %}"> login to like</a>
+            
+        </small>
+        {% endif %}
+      
+            
+            - {{ total_likes }} Likes
+        </form>
+        
+        <hr>
+
+        {% endfor %}
+        </ul>
+    </div>
+
+</div>
+
+{% endblock %}

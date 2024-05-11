@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %} Log in {% endblock %}
+
+{% block content %}
+<style>
+    .login-container{
+        display: grid;
+        grid-template-columns: 4fr 5fr 4fr;
+    }
+    .border-success {
+        --bs-border-opacity: 1;
+        border-color: rgba(var(--bs-success-rgb), var(--bs-border-opacity)) !important;
+}
+
+</style>
+
+
+
+
+<div class="login-container">
+    <div>
+
+    </div>
+
+    <div>
+        <h1> Log in </h1>
+        </br>
+        
+        <div class="form-group"></div>
+            <form method="POST">
+                {% csrf_token %}
+               
+                <div class="mb-3">
+                    
+                    <input type="text" class="form-control border-success" name="username" placeholder="Username">
+                </br><br/>
+                  
+                     <input class="form-control border-success" name="password" placeholder="Password">
+                </br><br/>
+
+                  <button class="btn btn-success" class="rounded-pill"> Log in </button>
+                </div>
+                Not Register? Sign Up Here: <a  href="{% url 'register'%}"> Sign Up</a>
+                
+        </div>  
+        
+        
+    
+    </div>
+
+        
+</div>
+
+
+
+
+
+{% endblock %}

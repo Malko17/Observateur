@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %} create a new blog post {% endblock %}
+
+{% block content %}
+<style>
+    .add_post-container{
+        display: grid;
+        grid-template-columns: 2fr 3fr 2fr;
+    }
+</style>
+
+<div class="add_post-container">
+
+    <div>
+
+    </div>
+
+    <div>
+        {% if user.is_authenticated %}
+        <h1> add post </h1>
+
+        </br>
+
+
+        <div class="form-group"></div>
+            <form method="POST" enctype = "multipart/form-data">
+                {% csrf_token %}
+                {{ form.media}}
+                {{ form.as_p}}
+
+                <button class="btn btn-success"> Post </button>
+
+        </div>
+
+        <script>
+
+            var name = "{{ user.id }}";
+            document.getElementById("malko").value=name;
+        </script>
+
+        {% else %}
+        You're not allowed here
+
+        {% endif %}
+    </div>
+</div>
+
+
+
+
+{% endblock %}

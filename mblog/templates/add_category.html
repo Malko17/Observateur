@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %} create a new blog category {% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+
+<style>
+    .add_post-container{
+        display: grid;
+        grid-template-columns: 2fr 3fr 2fr;
+    }
+</style>
+
+<div class="add_post-container">
+
+    <div>
+
+    </div>
+
+    <div>
+        <h1> add category </h1>
+
+        </br>
+
+
+        <div class="form-group"></div>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    
+                    <input type="text" class="form-control border-success" placeholder="Category">
+                </br><br/>
+                <button class="btn btn-success"> Category </button>
+                </div>
+            </form>
+
+        </div>
+
+        {% else %}
+        You're not allowed here
+
+        {% endif %}
+    </div>
+
+</div>
+
+
+{% endblock %}
