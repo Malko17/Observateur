@@ -34,24 +34,45 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
               {% if user.is_authenticated %}
+              <div class="topnav-centered">
+                <small>
+                  <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                  </form>
+                </small>
+
+              </div>
+             
               
-              
+              <small>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'resume' %}"> Resume</a>
+              </li> 
+            </small>
+
+            <small>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'add-post'%}"> Post</a>
               </li> 
+            </small>
 
+            <small>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'add-category'%}"> Category</a>
               </li> 
+            </small>
 
+            <small>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'edit-profile'%}"> Update Profile</a>
               </li> 
+            </small>
 
-
+            <small>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'logout_user' %}"> Logout </a>
               </li>
+            </small>
 
              {% else %}
               <li class="nav-item">
@@ -60,8 +81,7 @@
 
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'login' %}"> Login</a>
-              </li>
-              
+              </li>         
               {% endif %}
           
                  

@@ -16,6 +16,7 @@ urlpatterns = [
     path('like/<int:pk>', LikeView, name='like-post'),
     #path('1/password/', auth_views.PasswordChangeView.as_view(template_name='registration/change_password.html')),
     path('1/password/', PasswordsChangeView.as_view(template_name='registration/change_password.html')),
-    path('password_success', views.password_success, name='password_success')
+    path('password_success', views.password_success, name='password_success'),
+    
 
 ]
