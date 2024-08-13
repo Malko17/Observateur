@@ -1,6 +1,6 @@
 # Observateur
 
-To run this filen follow the following steps:
+To run this file follow the following steps:
 
 1. **Clone The code Project**
    ```
